@@ -1,0 +1,49 @@
+/* File: devconnect/frontend/src/pages/ProjectDetailPage.css */
+.project-detail-container {
+  padding: var(--spacing-sm);
+}
+
+.project-title {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  font-size: var(--spacing-xl); /* 3rem */
+  color: var(--accent-green);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.project-description {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  color: var(--text-muted);
+  font-size: var(--spacing-sm); /* 1rem */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.project-detail-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Task Board takes 2/3, Chat 1/3 */
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+  .project-detail-layout {
+    grid-template-columns: 1fr; /* Stack tasks and chat on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .project-title {
+    font-size: var(--spacing-lg); /* 2rem */
+  }
+  .project-description {
+    font-size: 0.9rem;
+  }
+  .project-detail-container {
+    padding: var(--spacing-xs);
+  }
+}

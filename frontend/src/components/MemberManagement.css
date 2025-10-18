@@ -1,0 +1,76 @@
+/* File: devconnect/frontend/src/components/MemberManagement.css */
+.member-management-container {
+    background: var(--surface-dark);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-dark);
+    border: 1px solid var(--border-dark);
+    max-width: 800px; /* Constrain width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.member-management-container h3 {
+    color: var(--accent-green);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--spacing-md); /* 1.5rem */
+}
+
+.add-member-form {
+    display: flex;
+    flex-direction: column; /* Stack on small screens */
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.add-member-form input {
+    flex-grow: 1;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    width: 100%; /* Full width for input */
+}
+
+.add-member-form input:focus {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 2px rgba(0, 255, 127, 0.2);
+}
+
+.add-member-form button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--accent-green);
+    color: var(--background-dark);
+    border-radius: var(--border-radius-sm);
+    font-weight: 700;
+    transition: all var(--transition-duration) var(--transition-timing-bouncy);
+    width: 100%; /* Full width for button */
+}
+
+.add-member-form button:hover {
+    background-color: var(--accent-green-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-light);
+}
+
+.member-message {
+    margin-top: var(--spacing-md);
+    color: var(--text-light);
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- Responsive Adjustments --- */
+@media (min-width: 600px) {
+    .add-member-form {
+        flex-direction: row; /* Row layout on larger screens */
+    }
+    .add-member-form input {
+        width: auto; /* Auto width when in row */
+    }
+    .add-member-form button {
+        width: auto; /* Auto width when in row */
+    }
+}

@@ -1,0 +1,90 @@
+/* File: devconnect/frontend/src/pages/DashboardPage.css */
+.dashboard-container {
+  padding: var(--spacing-sm);
+}
+
+.dashboard-container h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  font-size: var(--spacing-lg); /* 2rem */
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.create-project-form {
+  display: flex;
+  flex-direction: column; /* Stack on small screens */
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+  max-width: 600px; /* Limit form width */
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--spacing-md);
+  background-color: var(--surface-dark);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-dark);
+  border: 1px solid var(--border-dark);
+}
+
+.create-project-form input {
+  flex-grow: 1;
+  padding: var(--spacing-sm);
+  font-size: 1rem;
+}
+
+.create-project-form button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all var(--transition-duration) var(--transition-timing-bouncy);
+}
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+}
+
+.project-card {
+  background: var(--surface-dark);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-dark);
+  text-decoration: none;
+  color: var(--text-light);
+  transition: transform var(--transition-duration) var(--transition-timing-bouncy), box-shadow var(--transition-duration) var(--transition-timing-smooth);
+  border: 1px solid var(--border-dark);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-light);
+}
+
+.project-card h3 {
+  font-size: var(--spacing-md); /* 1.5rem */
+  color: var(--accent-green);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* --- Responsive Adjustments --- */
+@media (min-width: 768px) {
+  .create-project-form {
+    flex-direction: row; /* Row layout on larger screens */
+  }
+  .create-project-form input {
+    margin-right: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 600px) {
+  .create-project-form {
+    margin-left: var(--spacing-sm);
+    margin-right: var(--spacing-sm);
+  }
+  .project-list {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+  }
+}

@@ -2,10 +2,12 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/authMiddleware');
-const { getProjects, createProject, getProjectById } = require('../controllers/projectController');
+const { getProjects, createProject, getProjectById, addMemberToProject } = require('../controllers/projectController');
 
 // All project routes are protected
 router.route('/').get(auth, getProjects).post(auth, createProject);
 router.route('/:id').get(auth, getProjectById);
+
+router.route('/:id/members').post(auth, addMemberToProject);
 
 module.exports = router;

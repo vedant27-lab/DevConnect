@@ -1,1 +1,0 @@
-mongodb+srv://vedantmpatil27_db_user:<db_password>@devconnect.5vt2ccg.mongodb.net/?retryWrites=true&w=majority&appName=DevConnect

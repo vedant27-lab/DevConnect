@@ -22,6 +22,6 @@ app.get('/', (req, res) => res.send('Project Service is running successfully.'))
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('MongoDB connected to Project Service');
-        app.listen(PORT, () => console.log(`Project Service running on port ${PORT}`));
+        app.listen(PORT, '0.0.0.0', () => console.log(`Project Service running on port ${PORT}`));
     })
     .catch(err => console.error('MongoDB connection error:', err));

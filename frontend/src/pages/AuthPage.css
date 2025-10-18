@@ -1,0 +1,95 @@
+/* File: devconnect/frontend/src/pages/AuthPage.css */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: var(--spacing-xl); /* 3rem */
+  min-height: calc(100vh - 100px); /* Adjust based on navbar height */
+}
+
+.auth-form-box {
+  padding: var(--spacing-lg);
+  background: var(--surface-dark);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-dark);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  border: 1px solid var(--border-dark);
+}
+
+.auth-form-box h2 {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--spacing-lg); /* 2rem */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.auth-form-box input {
+  width: calc(100% - 2 * var(--spacing-sm)); /* Full width minus padding */
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--background-dark); /* Slightly darker input */
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.auth-form-box input:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 2px rgba(0, 255, 127, 0.2);
+}
+
+.auth-form-box button[type="submit"] {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background-color: var(--accent-green);
+  color: var(--background-dark);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--spacing-sm); /* 1rem */
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-duration) var(--transition-timing-bouncy);
+}
+
+.auth-form-box button[type="submit"]:hover {
+  background-color: var(--accent-green-dark);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-light);
+}
+
+.toggle-auth-btn {
+  background: none;
+  border: none;
+  color: var(--accent-green);
+  margin-top: var(--spacing-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color var(--transition-duration) var(--transition-timing-smooth);
+}
+
+.toggle-auth-btn:hover {
+  color: var(--accent-green-dark);
+  text-decoration: underline;
+}
+
+.error-message {
+  color: var(--error-red);
+  margin-bottom: var(--spacing-md);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 480px) {
+  .auth-form-box {
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm);
+  }
+  .auth-form-box h2 {
+    font-size: var(--spacing-md);
+  }
+  .auth-form-box input, .auth-form-box button {
+    font-size: 0.9rem;
+  }
+}
