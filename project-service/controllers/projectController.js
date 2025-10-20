@@ -19,7 +19,8 @@ exports.getProjects = async (req, res) => {
         // Find projects where the current user is a member
         const projects = await Project.find({ members: req.user.id }).sort({ createdAt: -1 });
         res.json(projects);
-    } catch (err) {
+    } catch (err)
+ {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
@@ -41,41 +42,49 @@ exports.getProjectById = async (req, res) => {
     }
 };
 
+// This is the function with added debugging logs.
 exports.addMemberToProject = async (req, res) => {
     try {
         const { email } = req.body;
+        
+        // --- LOG 1: See what email the service receives ---
+        console.log(`[Project Service] Received request to add member with email: ${email}`);
+        
         const project = await Project.findById(req.params.id);
 
         if (!project) {
             return res.status(404).json({ msg: 'Project not found' });
         }
-
-        // 1. Only the project owner can add members
         if (project.owner.toString() !== req.user.id) {
             return res.status(403).json({ msg: 'Not authorized to add members' });
         }
 
-        // 2. Ask the Auth service to find the user by email
         const authServiceUrl = `${process.env.AUTH_SERVICE_URL}/api/auth/user/email/${email}`;
+        
+        // --- LOG 2: Verify the URL being called is correct ---
+        console.log(`[Project Service] Calling Auth Service at URL: ${authServiceUrl}`);
+
         const { data: userToAdd } = await axios.get(authServiceUrl);
 
-        // 3. Check if the user is already a member
         if (project.members.includes(userToAdd.id)) {
             return res.status(400).json({ msg: 'User is already a member of this project' });
         }
 
-        // 4. Add the user's ID to the members array and save
         project.members.push(userToAdd.id);
         await project.save();
 
         res.json(project.members);
 
     } catch (err) {
-        // Handle case where user is not found by the auth service
+        // --- LOG 3: See the exact error if the request fails ---
+        console.error('[Project Service] Error adding member:', err.message);
+        if (err.response) {
+            console.error('[Project Service] Error details from Auth Service:', err.response.data);
+        }
+
         if (err.response && err.response.status === 404) {
             return res.status(404).json({ msg: 'User with that email not found' });
         }
-        console.error(err.message);
         res.status(500).send('Server Error');
     }
 };

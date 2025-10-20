@@ -1,0 +1,1 @@
+mongodb+srv://vedantmpatil27_db_user:nxz1YbDn9rk3BKuR@devconnect.5vt2ccg.mongodb.net/chatDB?retryWrites=true&w=majority&appName=DevConnect

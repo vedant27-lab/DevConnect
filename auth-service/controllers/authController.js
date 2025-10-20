@@ -58,15 +58,27 @@ exports.verifyToken = (req, res) => {
     }
 };
 
+// This is the function with added debugging logs.
 exports.findUserByEmail = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.params.email }).select('-password');
+        const userEmail = req.params.email;
+
+        // --- LOG 4: See if the request arrives and with what email ---
+        console.log(`[Auth Service] Received request to find user by email: ${userEmail}`);
+
+        const user = await User.findOne({ email: userEmail }).select('-password');
+
+        // --- LOG 5: See the result of the database query ---
         if (!user) {
+            console.log(`[Auth Service] Query result: User with email ${userEmail} NOT FOUND in database.`);
             return res.status(404).json({ msg: 'User not found' });
         }
+        
+        console.log(`[Auth Service] Query result: Found user with ID: ${user.id}`);
         res.json({ id: user.id, username: user.username });
+
     } catch (err) {
-        console.error(err.message);
+        console.error('[Auth Service] Server error while finding user:', err.message);
         res.status(500).send('Server Error');
     }
 };

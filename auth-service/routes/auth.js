@@ -7,6 +7,6 @@ router.post('/register', register);
 router.post('/login', login);
 // This is an internal route for other services to verify a token
 router.post('/verify', verifyToken);
-router.post('/user/email/:email', findUserByEmail);
+router.get('/user/email/:email', findUserByEmail);
 
 module.exports = router;
