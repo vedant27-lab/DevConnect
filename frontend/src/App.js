@@ -8,7 +8,7 @@ import AuthPage from './pages/AuthPage';
 import DashboardPage from './pages/DashboardPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import './App.css';
-
+import ChangePassword from './components/ChangePassword';
 // A wrapper for routes that require a user to be logged in.
 function PrivateRoute({ children }) {
     const { isAuthenticated } = useAuth();
@@ -31,6 +31,14 @@ function App() {
               <Route 
                 path="/project/:id" 
                 element={<PrivateRoute><ProjectDetailPage /></PrivateRoute>} 
+              />
+              <Route
+                path="/change-password"
+                element={
+                  <PrivateRoute>
+                    <ChangePassword/>
+                  </PrivateRoute>
+                }
               />
               <Route path="*" element={<Navigate to="/dashboard" />} />
             </Routes>

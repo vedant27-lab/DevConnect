@@ -1,14 +1,11 @@
-// File: devconnect/frontend/src/context/AuthContext.js
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
-// Axios instance for API calls
 const api = axios.create();
 
-// Utility to set the auth token for all subsequent Axios requests
 const setAuthToken = (token) => {
     if (token) {
         api.defaults.headers.common['x-auth-token'] = token;
@@ -61,8 +58,19 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
     };
 
+    const changePassword = async (oldPassword, newPassword) => {
+        const token = localStorage.getItem("token");
+        return await axios.post(
+            `${process.env.REACT_APP_AUTH_API_URL}/changePassword`,
+            {oldPassword, newPassword},
+            {
+                headers: {"x-auth-token": token},
+            }
+        );
+    };
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, loading, login, register, logout, api }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, loading, login, register, logout, changePassword, api }}>
             {!loading && children}
         </AuthContext.Provider>
     );

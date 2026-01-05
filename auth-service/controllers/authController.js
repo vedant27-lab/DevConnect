@@ -45,6 +45,36 @@ exports.login = async (req, res) => {
     }
 };
 
+exports.changePassword = async (req, res) => {
+    try {
+        const userEmail = req.body;
+        const { oldPassword, newPassword } = req.body;
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ msg: 'Please enter all fields' });
+        }
+
+        const user = await User.findUserByEmail(userEmail);
+        if (!user) return res.status(400).json({ msg: 'User not found' });
+
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+        if (!isMatch) return res.status(400).json({ msg: 'Old password is incorrect' });
+
+        const samePassword = await bcrypt.compare(newPassword, user.password);
+        if (samePassword) return res.status(400).json({ msg: 'New password must be different from old password' });
+
+        const salt = await bcrypt.genSalt(10)
+        user.password = await bcrypt.hash(newPassword, salt);
+        await user.save();
+
+        res.json({msg: "Password changed Successfully !"});
+    }catch(err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+};
+
 // Internal controller to verify token for other microservices
 exports.verifyToken = (req, res) => {
     try {
