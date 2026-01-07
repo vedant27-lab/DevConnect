@@ -1,5 +1,6 @@
 // File: devconnect/auth-service/routes/auth.js
 const express = require('express');
+const auth = require('../middleware/auth')
 const router = express.Router();
 const { register, login, verifyToken, findUserByEmail, changePassword } = require('../controllers/authController');
 

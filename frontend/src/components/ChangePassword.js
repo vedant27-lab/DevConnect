@@ -1,52 +1,46 @@
 import React, { useState } from "react";
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 const ChangePassword = () => {
-    const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [msg, setMsg] = useState("");
-    const [error, setError] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
 
-    const { changePassword} = useAuth();
+  const { changePassword } = useAuth();
 
-    const handleSubmit = async (e) => {
-        e.prevnetDefault();
-        setError("");
-        setMsg("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMsg("");
 
-        try {
-            await changePassword(oldPassword, newPassword);
-            setMsg("Password changed Successfully");
-            setOldPassword("");
-            setNewPassword("");
-        }catch (err) {
-            setError(err.response?.data?.msg || "Something went wrong");
-        }
-    };
+    try {
+      await changePassword(newPassword);
+      setMsg("Password changed successfully");
+      setNewPassword("");
+    } catch (err) {
+      setError(err.response?.data?.msg || "Something went wrong");
+    }
+  };
 
+  return (
+    <>
 
-    return (
-        <div className='auth-container'>
-            <div className="auth-form-box">
-                <h2>Forget Password</h2>
-                {msg && <p style={{color: 'green'}}>{msg}</p>}
-                {error && <p style={{color: 'red'}}>{msg}</p>}
+      {msg && <p style={{ color: "green" }}>{msg}</p>}
+      {error && <p className="error-message">{error}</p>}
 
-                <form onSubmit={handleSubmit}>
-                    <input 
-                        type='password' 
-                        placeholder="New Password" 
-                        value={newPassword} 
-                        onChange={(e) => setNewPassword(e.target.value)} required
-                    />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="New Password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+        />
 
-                    <button type="submit">Change Password</button>
-
-
-                </form>
-            </div>
-        </div>
-    )
-}
+        <button type="submit">Change Password</button>
+      </form>
+    </>
+  );
+};
 
 export default ChangePassword;
