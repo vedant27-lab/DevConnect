@@ -1,95 +1,288 @@
-/* File: devconnect/frontend/src/pages/AuthPage.css */
+/* DevConnect — Auth Page (fully responsive) */
+
+/* ── Page wrapper ── */
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: var(--spacing-xl); /* 3rem */
-  min-height: calc(100vh - 100px); /* Adjust based on navbar height */
+  min-height: calc(100vh - 64px);
+  padding: var(--sp-lg);
+  box-sizing: border-box;
 }
 
+/* ── Glass card ── */
 .auth-form-box {
-  padding: var(--spacing-lg);
-  background: var(--surface-dark);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-dark);
   width: 100%;
-  max-width: 450px;
-  text-align: center;
-  border: 1px solid var(--border-dark);
+  max-width: 440px;
+  padding: var(--sp-2xl) var(--sp-xl);
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: fadeInUp 0.5s var(--ease-out) both;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Top glow stripe */
+.auth-form-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.6;
+}
+
+/* Corner glow orb */
+.auth-form-box::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Title ── */
 .auth-form-box h2 {
-  color: var(--text-light);
-  margin-bottom: var(--spacing-lg);
-  font-size: var(--spacing-lg); /* 2rem */
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.4rem, 4vw, 1.75rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--sp-lg);
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Inputs ── */
+.auth-form-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .auth-form-box input {
-  width: calc(100% - 2 * var(--spacing-sm)); /* Full width minus padding */
-  padding: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
-  border: 1px solid var(--border-dark);
-  border-radius: var(--border-radius-sm);
-  background-color: var(--background-dark); /* Slightly darker input */
-  color: var(--text-light);
-  font-size: 1rem;
+  margin-bottom: var(--sp-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-md);
+  padding: 0.8rem var(--sp-md);
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color var(--t-base) var(--ease), background var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease);
 }
 
 .auth-form-box input:focus {
-  border-color: var(--accent-green);
-  box-shadow: 0 0 0 2px rgba(0, 255, 127, 0.2);
+  border-color: var(--accent);
+  background: rgba(0, 229, 160, 0.04);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
+/* ── Submit button ── */
 .auth-form-box button[type="submit"] {
   width: 100%;
-  padding: var(--spacing-sm);
-  background-color: var(--accent-green);
-  color: var(--background-dark);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--spacing-sm); /* 1rem */
+  padding: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  transition: all var(--transition-duration) var(--transition-timing-bouncy);
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  color: #000;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--sp-sm);
+  box-shadow: 0 4px 20px var(--accent-glow);
+  min-height: 48px;
+  /* comfortable tap target */
 }
 
-.auth-form-box button[type="submit"]:hover {
-  background-color: var(--accent-green-dark);
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-light);
+.auth-form-box button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-glow);
 }
 
+.auth-form-box button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Toggle / ghost buttons ── */
 .toggle-auth-btn {
-  background: none;
-  border: none;
-  color: var(--accent-green);
-  margin-top: var(--spacing-md);
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: color var(--transition-duration) var(--transition-timing-smooth);
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  border-radius: var(--r-sm);
+  min-height: 44px;
+  /* tap target */
+  transition: color var(--t-base) var(--ease), background var(--t-base) var(--ease);
+  box-shadow: none;
 }
 
-.toggle-auth-btn:hover {
-  color: var(--accent-green-dark);
-  text-decoration: underline;
+.toggle-auth-btn::after {
+  display: none;
 }
 
-.error-message {
-  color: var(--error-red);
-  margin-bottom: var(--spacing-md);
+.toggle-auth-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--glass-hover);
+  transform: none;
+  box-shadow: none;
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 480px) {
+.toggle-auth-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.forgot-link {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  min-height: 36px;
+}
+
+.forgot-link:hover {
+  color: var(--accent);
+}
+
+/* ── Step Indicator ── */
+.forgot-password-wrapper {
+  text-align: center;
+}
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-md);
+}
+
+.step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--t-slow) var(--ease-spring);
+  flex-shrink: 0;
+}
+
+.step-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  box-shadow: 0 0 14px var(--accent-glow);
+  transform: scale(1.15);
+}
+
+.step-line {
+  flex: 1;
+  max-width: 50px;
+  height: 1px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+.step-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-md);
+  padding: 0 var(--sp-sm);
+  line-height: 1.4;
+}
+
+/* OTP big input */
+.otp-input {
+  text-align: center !important;
+  font-size: clamp(1.4rem, 6vw, 2rem) !important;
+  letter-spacing: clamp(0.3rem, 2vw, 0.8rem);
+  font-weight: 700;
+  color: var(--accent) !important;
+  font-family: 'Space Grotesk', monospace !important;
+}
+
+.otp-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-md);
+}
+
+/* ═══════════════════════════════════════
+   TABLET (≤ 768px)
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: var(--sp-md);
+    align-items: flex-start;
+    padding-top: var(--sp-lg);
+    min-height: calc(100vh - 56px);
+  }
+
   .auth-form-box {
-    padding: var(--spacing-md);
-    margin: var(--spacing-sm);
+    padding: var(--sp-xl) var(--sp-lg);
+    border-radius: var(--r-lg);
   }
-  .auth-form-box h2 {
-    font-size: var(--spacing-md);
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (≤ 480px)
+═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: var(--sp-sm);
+    padding-top: var(--sp-md);
   }
-  .auth-form-box input, .auth-form-box button {
+
+  .auth-form-box {
+    padding: var(--sp-lg) var(--sp-md);
+    border-radius: var(--r-lg);
+    /* Full width on very small screens */
+    max-width: 100%;
+  }
+
+  .auth-form-box input {
+    padding: 0.9rem var(--sp-md);
+    font-size: 16px;
+    /* Prevent iOS zoom on focus */
+  }
+
+  .auth-form-box button[type="submit"] {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .toggle-auth-btn {
     font-size: 0.9rem;
+  }
+
+  .step-dot {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .step-line {
+    max-width: 32px;
   }
 }

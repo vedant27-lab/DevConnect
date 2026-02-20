@@ -1,100 +1,199 @@
-/* File: devconnect/frontend/src/components/TaskBoard.css */
+/* DevConnect — Task Board (fully responsive) */
 .task-board {
-  background: var(--surface-dark);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-dark);
-  border: 1px solid var(--border-dark);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: var(--sp-lg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.task-board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.5;
 }
 
 .task-board h3 {
-  color: var(--accent-green);
-  margin-bottom: var(--spacing-lg);
-  font-size: var(--spacing-md); /* 1.5rem */
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-md);
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
+.task-board h3::before {
+  content: '📋';
+}
+
+/* ── Add Task Form ── */
 .add-task-form {
   display: flex;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-lg);
 }
 
 .add-task-form input {
   flex-grow: 1;
-  padding: var(--spacing-sm);
-  background-color: var(--background-dark);
-  border: 1px solid var(--border-dark);
-  color: var(--text-light);
+  min-width: 0;
+  margin-bottom: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 0.6rem var(--sp-md);
+  font-size: 16px;
+  /* prevent iOS zoom */
 }
 
 .add-task-form button {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-weight: 700;
+  flex-shrink: 0;
+  border-radius: var(--r-full);
+  padding: 0.6rem var(--sp-md);
+  font-size: 0.85rem;
+  min-height: 44px;
+  white-space: nowrap;
 }
 
+/* ── Kanban Columns ── */
 .task-columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-md);
+  gap: var(--sp-md);
 }
 
 .task-column {
-  background-color: var(--background-dark);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  border: 1px solid var(--border-dark);
-  min-height: 200px; /* Ensure columns have some height */
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--sp-md);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  min-height: 160px;
 }
 
 .task-column h4 {
-  color: var(--text-light);
-  margin-bottom: var(--spacing-md);
-  text-align: center;
-  font-size: var(--spacing-sm); /* 1rem */
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border-dark);
-  padding-bottom: var(--spacing-xs);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-md);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--sp-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
 }
 
+.task-column:nth-child(1) h4 {
+  color: var(--warning);
+}
+
+.task-column:nth-child(2) h4 {
+  color: var(--accent2);
+}
+
+.task-column:nth-child(3) h4 {
+  color: var(--accent);
+}
+
+/* ── Task Card ── */
 .task-card {
-  background: var(--surface-dark);
-  padding: var(--spacing-sm);
-  margin-top: var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-dark);
-  transition: transform var(--transition-duration) var(--transition-timing-bouncy), box-shadow var(--transition-duration) var(--transition-timing-smooth);
+  background: var(--glass-bg);
+  padding: var(--sp-sm);
+  margin-top: var(--sp-sm);
+  border-radius: var(--r-md);
+  border: 1px solid var(--glass-border);
+  transition: transform var(--t-base) var(--ease-spring), box-shadow var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease);
+  animation: fadeInUp 0.3s var(--ease-out) both;
 }
 
 .task-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(0, 255, 127, 0.15); /* Subtle green glow on hover */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm), 0 0 16px var(--accent-glow-lg);
+  border-color: rgba(0, 229, 160, 0.15);
 }
 
 .task-card p {
-  color: var(--text-light);
-  font-size: 0.95rem;
-  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  margin-bottom: var(--sp-sm);
+  line-height: 1.4;
 }
 
 .task-card select {
   width: 100%;
-  padding: var(--spacing-xs);
-  font-size: 0.85rem;
-  background-color: var(--background-dark);
-  border: 1px solid var(--border-dark);
-  color: var(--text-light);
-  border-radius: var(--border-radius-sm);
+  margin-bottom: 0;
+  padding: 0.4rem var(--sp-sm);
+  font-size: 0.8rem;
+  border-radius: var(--r-sm);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-  .task-columns {
-    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+/* ═══════════════════════════════════════
+   TABLET (≤ 900px) — 3 cols with smaller padding
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .task-board {
+    padding: var(--sp-md);
   }
+
+  .task-columns {
+    gap: var(--sp-sm);
+  }
+
+  .task-column {
+    padding: var(--sp-sm);
+  }
+}
+
+/* ═══════════════════════════════════════
+   TABLET PORTRAIT (≤ 640px) — 1 col stacked
+═══════════════════════════════════════ */
+@media (max-width: 640px) {
+  .task-columns {
+    grid-template-columns: 1fr;
+  }
+
   .add-task-form {
     flex-direction: column;
+    gap: var(--sp-sm);
+  }
+
+  .add-task-form button,
+  .add-task-form input {
+    border-radius: var(--r-md);
+    width: 100%;
+  }
+
+  /* Horizontal scrollable columns alternative on small tablet */
+  .task-column {
+    min-height: 120px;
+  }
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (≤ 480px)
+═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .task-board {
+    padding: var(--sp-sm) var(--sp-md);
+    border-radius: var(--r-md);
   }
 }

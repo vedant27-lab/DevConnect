@@ -1,10 +1,10 @@
+// dotenv MUST be loaded first — before any other require that reads process.env
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -23,4 +23,4 @@ mongoose.connect(process.env.MONGO_URI)
     })
     .catch(err => console.error('MongoDB connection error:', err));
 
-module.exports = app; 
+module.exports = app;

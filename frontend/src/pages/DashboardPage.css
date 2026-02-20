@@ -1,90 +1,243 @@
-/* File: devconnect/frontend/src/pages/DashboardPage.css */
+/* DevConnect — Dashboard Page (fully responsive) */
+
 .dashboard-container {
-  padding: var(--spacing-sm);
+  padding: var(--sp-sm) 0;
 }
 
-.dashboard-container h2 {
+/* ── Header ── */
+.dashboard-header {
   text-align: center;
-  margin-bottom: var(--spacing-xl);
-  font-size: var(--spacing-lg); /* 2rem */
-  color: var(--text-light);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  margin-bottom: var(--sp-xl);
+  animation: fadeInUp 0.4s var(--ease-out) both;
 }
 
+.dashboard-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.4rem;
+}
+
+.dashboard-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ── Create Project Form ── */
 .create-project-form {
   display: flex;
-  flex-direction: column; /* Stack on small screens */
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-xl);
-  max-width: 600px; /* Limit form width */
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-xl);
+  max-width: 640px;
   margin-left: auto;
   margin-right: auto;
-  padding: var(--spacing-md);
-  background-color: var(--surface-dark);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-dark);
-  border: 1px solid var(--border-dark);
+  padding: var(--sp-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+  animation: fadeInUp 0.5s var(--ease-out) 0.1s both;
+  position: relative;
+}
+
+.create-project-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.5;
+  border-radius: var(--r-full);
 }
 
 .create-project-form input {
   flex-grow: 1;
-  padding: var(--spacing-sm);
-  font-size: 1rem;
+  margin-bottom: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  min-width: 0;
+  /* Allow shrinking below content size */
 }
 
 .create-project-form button {
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 1rem;
+  flex-shrink: 0;
+  padding: 0.75rem var(--sp-md);
+  white-space: nowrap;
   font-weight: 700;
-  transition: all var(--transition-duration) var(--transition-timing-bouncy);
+  min-height: 46px;
 }
 
+/* ── Section Title ── */
+.projects-section-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-md);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.projects-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Project Grid ── */
 .project-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
-  gap: var(--spacing-md);
-  padding: var(--spacing-sm);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-md);
 }
 
+/* ── Project Card ── */
 .project-card {
-  background: var(--surface-dark);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--shadow-dark);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: var(--sp-lg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
   text-decoration: none;
-  color: var(--text-light);
-  transition: transform var(--transition-duration) var(--transition-timing-bouncy), box-shadow var(--transition-duration) var(--transition-timing-smooth);
-  border: 1px solid var(--border-dark);
+  color: var(--text-primary);
+  transition: transform var(--t-base) var(--ease-spring), box-shadow var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease), background var(--t-base) var(--ease);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s var(--ease-out) both;
+  /* Minimum tap area */
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-slow) var(--ease-spring);
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-light);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md), 0 0 30px var(--accent-glow-lg);
+  border-color: rgba(0, 229, 160, 0.2);
+  background: var(--glass-hover);
+  color: var(--text-primary);
 }
 
 .project-card h3 {
-  font-size: var(--spacing-md); /* 1.5rem */
-  color: var(--accent-green);
-  margin-bottom: var(--spacing-xs);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-xs);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* --- Responsive Adjustments --- */
-@media (min-width: 768px) {
-  .create-project-form {
-    flex-direction: row; /* Row layout on larger screens */
-  }
-  .create-project-form input {
-    margin-right: var(--spacing-sm);
-  }
+.project-card h3::before {
+  content: '◆';
+  color: var(--accent);
+  font-size: 0.6rem;
+  flex-shrink: 0;
 }
 
-@media (max-width: 600px) {
-  .create-project-form {
-    margin-left: var(--spacing-sm);
-    margin-right: var(--spacing-sm);
-  }
+.project-card p {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+/* ── Empty State ── */
+.projects-empty {
+  text-align: center;
+  padding: var(--sp-2xl) var(--sp-lg);
+  color: var(--text-muted);
+  animation: fadeIn 0.5s var(--ease);
+}
+
+.projects-empty .empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--sp-md);
+  animation: float 3s ease-in-out infinite;
+  display: block;
+}
+
+/* ═══════════════════════════════════════
+   TABLET (≤ 900px)
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
   .project-list {
-    grid-template-columns: 1fr; /* Single column on very small screens */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+/* ═══════════════════════════════════════
+   TABLET PORTRAIT / LARGE MOBILE (≤ 640px)
+═══════════════════════════════════════ */
+@media (max-width: 640px) {
+  .create-project-form {
+    flex-direction: column;
+    padding: var(--sp-md);
+    border-radius: var(--r-lg);
+    gap: var(--sp-sm);
+  }
+
+  .create-project-form input {
+    font-size: 16px;
+  }
+
+  /* no iOS zoom */
+  .create-project-form button {
+    width: 100%;
+  }
+
+  .project-list {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-sm);
+  }
+
+  .dashboard-header {
+    margin-bottom: var(--sp-lg);
+  }
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (≤ 420px)
+═══════════════════════════════════════ */
+@media (max-width: 420px) {
+  .project-list {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    padding: var(--sp-md);
   }
 }

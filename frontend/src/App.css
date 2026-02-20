@@ -1,4 +1,4 @@
-/* File: devconnect/frontend/src/App.css */
+/* DevConnect — App Layout */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -7,16 +7,16 @@
 
 main {
   flex-grow: 1;
-  padding: var(--spacing-lg);
-  max-width: 1400px; /* Max width for desktop */
+  padding: var(--sp-lg);
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  animation: fadeIn 0.4s var(--ease);
 }
 
-/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
   main {
-    padding: var(--spacing-sm); /* Smaller padding on smaller screens */
+    padding: var(--sp-md);
   }
 }

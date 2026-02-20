@@ -1,76 +1,140 @@
-/* File: devconnect/frontend/src/components/MemberManagement.css */
+/* DevConnect — Member Management (fully responsive) */
 .member-management-container {
-    background: var(--surface-dark);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    margin-bottom: var(--spacing-lg);
-    box-shadow: var(--shadow-dark);
-    border: 1px solid var(--border-dark);
-    max-width: 800px; /* Constrain width */
-    margin-left: auto;
-    margin-right: auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: var(--sp-lg);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-md);
+    max-width: 800px;
+    margin: 0 auto var(--sp-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.member-management-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    opacity: 0.5;
 }
 
 .member-management-container h3 {
-    color: var(--accent-green);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--spacing-md); /* 1.5rem */
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--sp-md);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+.member-management-container h3::before {
+    content: '👥';
+}
+
+/* ── Add Member Form ── */
 .add-member-form {
     display: flex;
-    flex-direction: column; /* Stack on small screens */
-    gap: var(--spacing-sm);
+    gap: var(--sp-sm);
     align-items: center;
+    margin-bottom: var(--sp-md);
+    flex-wrap: wrap;
 }
 
 .add-member-form input {
     flex-grow: 1;
-    padding: var(--spacing-sm);
-    border: 1px solid var(--border-dark);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--background-dark);
-    color: var(--text-light);
-    width: 100%; /* Full width for input */
-}
-
-.add-member-form input:focus {
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 2px rgba(0, 255, 127, 0.2);
+    min-width: 160px;
+    margin-bottom: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    font-size: 16px;
+    /* prevent iOS zoom */
 }
 
 .add-member-form button {
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: var(--accent-green);
-    color: var(--background-dark);
-    border-radius: var(--border-radius-sm);
-    font-weight: 700;
-    transition: all var(--transition-duration) var(--transition-timing-bouncy);
-    width: 100%; /* Full width for button */
+    flex-shrink: 0;
+    border-radius: var(--r-full);
+    padding: 0.6rem var(--sp-md);
+    font-size: 0.85rem;
+    min-height: 46px;
+    white-space: nowrap;
 }
 
-.add-member-form button:hover {
-    background-color: var(--accent-green-dark);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-light);
+/* ── Member Tag List ── */
+.member-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-sm);
+    margin-top: var(--sp-md);
+}
+
+.member-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: var(--r-full);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.82rem;
+    color: #a5b4fc;
+    animation: fadeInUp 0.25s var(--ease-out) both;
+    white-space: nowrap;
+}
+
+.member-tag::before {
+    content: '●';
+    font-size: 0.5rem;
+    color: var(--accent2);
 }
 
 .member-message {
-    margin-top: var(--spacing-md);
-    color: var(--text-light);
-    font-weight: bold;
+    margin-top: var(--sp-md);
+    font-size: 0.85rem;
     text-align: center;
+    color: var(--accent);
+    animation: fadeIn 0.3s var(--ease);
 }
 
-/* --- Responsive Adjustments --- */
-@media (min-width: 600px) {
+/* ═══════════════════════════════════════
+   TABLET (≤ 640px)
+═══════════════════════════════════════ */
+@media (max-width: 640px) {
+    .member-management-container {
+        padding: var(--sp-md);
+        border-radius: var(--r-md);
+    }
+
     .add-member-form {
-        flex-direction: row; /* Row layout on larger screens */
+        flex-direction: column;
+        align-items: stretch;
     }
-    .add-member-form input {
-        width: auto; /* Auto width when in row */
-    }
+
+    .add-member-form input,
     .add-member-form button {
-        width: auto; /* Auto width when in row */
+        width: 100%;
+        border-radius: var(--r-md);
+    }
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (≤ 480px)
+═══════════════════════════════════════ */
+@media (max-width: 480px) {
+    .member-list {
+        gap: var(--sp-xs);
+    }
+
+    .member-tag {
+        font-size: 0.78rem;
+        padding: 0.25rem 0.6rem;
     }
 }

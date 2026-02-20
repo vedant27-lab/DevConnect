@@ -1,49 +1,90 @@
-/* File: devconnect/frontend/src/pages/ProjectDetailPage.css */
+/* DevConnect — Project Detail Page (fully responsive) */
 .project-detail-container {
-  padding: var(--spacing-sm);
+  padding: var(--sp-sm) 0;
+  animation: fadeIn 0.4s var(--ease);
+}
+
+/* ── Project Header ── */
+.project-header {
+  text-align: center;
+  margin-bottom: var(--sp-xl);
 }
 
 .project-title {
-  text-align: center;
-  margin-bottom: var(--spacing-md);
-  font-size: var(--spacing-xl); /* 3rem */
-  color: var(--accent-green);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--sp-xs);
+  animation: fadeInUp 0.4s var(--ease-out) both;
 }
 
 .project-description {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
   color: var(--text-muted);
-  font-size: var(--spacing-sm); /* 1rem */
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeInUp 0.4s var(--ease-out) 0.1s both;
 }
 
+.project-header::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: var(--r-full);
+  margin: var(--sp-md) auto 0;
+  animation: fadeIn 0.6s var(--ease) 0.2s both;
+}
+
+/* ── Main Layout: TaskBoard (2fr) + Chat (1fr) ── */
 .project-detail-layout {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Task Board takes 2/3, Chat 1/3 */
-  gap: var(--spacing-lg);
+  grid-template-columns: 2fr 1fr;
+  gap: var(--sp-lg);
   align-items: start;
+  animation: fadeInUp 0.5s var(--ease-out) 0.2s both;
 }
 
-/* --- Responsive Adjustments --- */
-@media (max-width: 992px) {
+/* ═══════════════════════════════════════
+   TABLET LANDSCAPE (≤ 1100px)
+═══════════════════════════════════════ */
+@media (max-width: 1100px) {
   .project-detail-layout {
-    grid-template-columns: 1fr; /* Stack tasks and chat on smaller screens */
+    grid-template-columns: 3fr 2fr;
+    gap: var(--sp-md);
   }
 }
 
-@media (max-width: 768px) {
-  .project-title {
-    font-size: var(--spacing-lg); /* 2rem */
+/* ═══════════════════════════════════════
+   TABLET PORTRAIT (≤ 900px) — stack
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .project-detail-layout {
+    grid-template-columns: 1fr;
+    gap: var(--sp-md);
   }
-  .project-description {
-    font-size: 0.9rem;
+
+  .project-header {
+    margin-bottom: var(--sp-lg);
   }
+}
+
+/* ═══════════════════════════════════════
+   MOBILE (≤ 640px)
+═══════════════════════════════════════ */
+@media (max-width: 640px) {
   .project-detail-container {
-    padding: var(--spacing-xs);
+    padding: var(--sp-xs) 0;
+  }
+
+  .project-description {
+    font-size: 0.88rem;
+    padding: 0 var(--sp-sm);
   }
 }
