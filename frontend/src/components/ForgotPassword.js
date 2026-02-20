@@ -95,7 +95,7 @@ const ForgotPassword = ({ onBack }) => {
         clearMessages();
         setLoading(true);
         try {
-            const res = await requestForgotPasswordOtp(email);
+            await requestForgotPasswordOtp(email);
             setMsg('OTP resent! Check your email.');
             startResendTimer(60);
         } catch (err) {

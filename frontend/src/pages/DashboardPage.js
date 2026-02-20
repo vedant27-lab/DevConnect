@@ -1,5 +1,5 @@
 // File: devconnect/frontend/src/pages/DashboardPage.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import './DashboardPage.css';
@@ -8,18 +8,18 @@ const DashboardPage = () => {
     const [projects, setProjects] = useState([]);
     const [projectName, setProjectName] = useState('');
     const [creating, setCreating] = useState(false);
-    const { api, user } = useAuth();
+    const { api } = useAuth();
 
-    const fetchProjects = async () => {
+    const fetchProjects = useCallback(async () => {
         try {
             const res = await api.get(`${process.env.REACT_APP_PROJECT_API_URL}/projects`);
             setProjects(res.data);
         } catch (error) {
             console.error('Failed to fetch projects', error);
         }
-    };
+    }, [api]);
 
-    useEffect(() => { fetchProjects(); }, []);
+    useEffect(() => { fetchProjects(); }, [fetchProjects]);
 
     const handleCreateProject = async (e) => {
         e.preventDefault();

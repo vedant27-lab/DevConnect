@@ -4,7 +4,7 @@ DevConnect is a full-stack, microservices-based web application designed for dev
 
 ## ✨ Features
 
-* **User Authentication**: Secure user registration and login using JWT.
+* **User Authentication**: Secure user registration, login, and forgot password flow using JWT & OTP verification.
 * **Project Management**: Create projects, add descriptions, and manage members.
 * **Task Tracking**: Kanban-style board to add, update, and track tasks (`To Do`, `In Progress`, `Done`).
 * **Real-time Chat**: A dedicated chat room for each project using WebSockets (Socket.io).
